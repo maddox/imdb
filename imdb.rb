@@ -14,19 +14,39 @@ class Imdb
     
 
     #get imdb id
-    @imdb_id = @imdb_contents.match(/tt\d\d\d\d\d\d\d/).to_s
-
+    begin
+      @imdb_id = @imdb_contents.match(/tt\d\d\d\d\d\d\d/).to_s
+    rescue
+      @imdb_id = ""
+    end
+    
     #get cover
-    @image_url = @imdb_contents.match(/name="poster.*height/).to_s.match(/http.*\.jpg/).to_s
+    begin
+      @image_url = @imdb_contents.match(/name="poster.*height/).to_s.match(/http.*\.jpg/).to_s
+    rescue
+      @image_url = ""
+    end
     
     ##get plot
-    @description = @imdb_contents.match(/Plot (Outline|Summary).*?href/m).to_s[18..-9].strip
+    begin
+      @description = @imdb_contents.match(/Plot (Outline|Summary).*?href/m).to_s[18..-9].strip
+    rescue
+      @description = ""
+    end
     
     ##get runtime
-    @runtime = @imdb_contents.match(/\d\d\d min/).to_s[0..-5]
-
+    begin
+      @runtime = @imdb_contents.match(/\d\d\d min/).to_s[0..-5]
+    rescue
+      @runtime = 0
+    end
+    
     ##get rating
-    @rating = @imdb_contents.match(/USA:(G|PG|PG-13|R|NR)/).to_s
+    begin
+      @rating = @imdb_contents.match(/USA:(G|PG|PG-13|R|NR)/).to_s.gsub('USA:', '')
+    rescue
+      @rating = "NR"
+    end
 
   end
   

@@ -9,7 +9,7 @@ movie = Imdb.new('die hard 2')
 
 p "IMDB ID: #{movie.imdb_id}"
 p "Title: #{movie.title}"
-p "Plot: #{movie.plot}"
+p "Plot: #{movie.description}"
 p "Runtime: #{movie.runtime}"
 p "Rating: #{movie.rating}"
 p "Image URL: #{movie.image_url}"

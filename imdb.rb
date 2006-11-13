@@ -5,7 +5,7 @@ class Imdb
   IMDB_SEARCH_PATH = "/find?q="
   
   
-  attr_accessor :imdb_id, :title, :plot, :rating, :runtime, :image_url, :imdb_contents
+  attr_accessor :imdb_id, :title, :description, :rating, :runtime, :image_url, :imdb_contents
   
   def initialize(title)
     @title = title
@@ -20,7 +20,7 @@ class Imdb
     @image_url = @imdb_contents.scan(/name="poster.*height/).first.scan(/http.*\.jpg/).first
     
     ##get plot
-    @plot = @imdb_contents.scan(/Plot Outline:.*?href/).first[18..-9]
+    @description = @imdb_contents.scan(/Plot Outline:.*?href/).first[18..-9]
 
     ##get runtime
     @runtime = @imdb_contents.scan(/\d\d\d min/).first[0..-5]

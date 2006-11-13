@@ -45,7 +45,7 @@ class Imdb
   end
 
   def to_h
-    {:imdb_id => @imdb_id, :title => @title, :plot => @plot, :rating => @rating, :runtime => @runtime, :image_url => @image_url}
+    {:imdb_id => @imdb_id, :title => @title, :description => @description, :rating => @rating, :runtime => @runtime, :image_url => @image_url}
   end
 
   

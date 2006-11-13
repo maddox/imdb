@@ -14,10 +14,10 @@ class Imdb
     
 
     #get imdb id
-    @imdb_id = @imdb_contents.match(/tt\d\d\d\d\d\d\d/)
+    @imdb_id = @imdb_contents.match(/tt\d\d\d\d\d\d\d/).to_s
 
     #get cover
-    @image_url = @imdb_contents.match(/name="poster.*height/).to_s.match(/http.*\.jpg/)
+    @image_url = @imdb_contents.match(/name="poster.*height/).to_s.match(/http.*\.jpg/).to_s
     
     ##get plot
     @description = @imdb_contents.match(/Plot (Outline|Summary).*?href/m).to_s[18..-9].strip

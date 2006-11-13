@@ -14,19 +14,19 @@ class Imdb
     
 
     #get imdb id
-    @imdb_id = @imdb_contents.scan(/tt\d\d\d\d\d\d\d/).first
+    @imdb_id = @imdb_contents.match(/tt\d\d\d\d\d\d\d/)
 
     #get cover
-    @image_url = @imdb_contents.scan(/name="poster.*height/).first.scan(/http.*\.jpg/).first
+    @image_url = @imdb_contents.match(/name="poster.*height/).to_s.match(/http.*\.jpg/)
     
     ##get plot
-    @description = @imdb_contents.scan(/Plot Outline:.*?href/).first[18..-9]
-
+    @description = @imdb_contents.match(/Plot (Outline|Summary).*?href/m).to_s[18..-9].strip
+    
     ##get runtime
-    @runtime = @imdb_contents.scan(/\d\d\d min/).first[0..-5]
+    @runtime = @imdb_contents.match(/\d\d\d min/).to_s[0..-5]
 
     ##get rating
-    @rating = @imdb_contents.scan(/USA:(G|PG|PG-13|R|NR)/).first.to_s
+    @rating = @imdb_contents.match(/USA:(G|PG|PG-13|R|NR)/).to_s
 
   end
   
@@ -43,6 +43,9 @@ class Imdb
     end
 
   end
+
+
+  # this is here specifically for my flicks web app
 
   def to_h
     {:imdb_id => @imdb_id, :title => @title, :description => @description, :rating => @rating, :runtime => @runtime}

@@ -43,7 +43,7 @@ class Imdb
     
     ##get rating
     begin
-      @rating = @imdb_contents.match(/USA:(G|PG|PG-13|R|NR)/).to_s.gsub('USA:', '')
+      @rating = @imdb_contents.match(/USA:(G|PG-13|PG|R|NR)/).to_s.gsub('USA:', '')
     rescue
       @rating = "NR"
     end

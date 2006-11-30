@@ -36,7 +36,7 @@ class Imdb
     
     ##get runtime
     begin
-      @runtime = @imdb_contents.match(/\d\d\d min/).to_s[0..-5]
+      @runtime = @imdb_contents.match(/\d\d\d min|\d\d min/).to_s[0..-5]
     rescue
       @runtime = 0
     end

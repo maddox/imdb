@@ -7,7 +7,7 @@ require 'imdb'
 require 'net/http'
 require 'open-uri'
 
-movie = Imdb.new('Star wars episode 1')
+movie = Imdb.new('an american tail')
 
 p "IMDB ID: #{movie.imdb_id}"
 p "Title: #{movie.title}"

@@ -13,7 +13,7 @@ p "IMDB ID: #{movie.imdb_id}"
 p "Title: #{movie.title}"
 p "Plot: #{movie.description}"
 p "Runtime: #{movie.runtime}"
-p "Rating: #{movie.rating}"
+p "Rating: #{movie.rated}"
 p "Image URL: #{movie.image_url}"
 
 

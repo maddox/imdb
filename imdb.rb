@@ -5,7 +5,7 @@ class Imdb
   IMDB_SEARCH_PATH = "/find?q="
   
   
-  attr_accessor :imdb_id, :title, :description, :rating, :runtime, :image_url, :imdb_contents
+  attr_accessor :imdb_id, :title, :description, :rated, :runtime, :image_url, :imdb_contents
   
   def initialize(title)
     @title = title
@@ -43,9 +43,9 @@ class Imdb
     
     ##get rating
     begin
-      @rating = @imdb_contents.match(/USA:(G|PG-13|PG|R|NR)/).to_s.gsub('USA:', '')
+      @rated = @imdb_contents.match(/USA:(G|PG-13|PG|R|NR)/).to_s.gsub('USA:', '')
     rescue
-      @rating = "NR"
+      @rated = "NR"
     end
 
   end

@@ -7,7 +7,7 @@ movie = Imdb.new('die hard 2')
 puts "IMDB ID: #{movie.imdb_id}"
 puts "Title: #{movie.title}"
 puts "Plot: #{movie.plot}"
-puts "Runtime: #{movie.runtime}"
+puts "Runtime: #{movie.rated}"
 puts "Rating: #{movie.rating}"
 puts "Image URL: #{movie.image_url}"
 

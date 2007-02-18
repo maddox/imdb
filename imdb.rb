@@ -68,7 +68,7 @@ class Imdb
   # this is here specifically for my flicks web app
 
   def to_h
-    {:imdb_id => @imdb_id, :title => @title, :description => @description, :rating => @rating, :runtime => @runtime}
+    {:imdb_id => @imdb_id, :title => @title, :description => @description, :rated => @rated, :runtime => @runtime}
   end
 
   

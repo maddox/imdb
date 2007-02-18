@@ -7,13 +7,13 @@ require 'imdb'
 require 'net/http'
 require 'open-uri'
 
-movie = Imdb.new('an american tail')
+movie = Imdb.new('Marie Antoinette')
 
 p "IMDB ID: #{movie.imdb_id}"
 p "Title: #{movie.title}"
 p "Plot: #{movie.description}"
 p "Runtime: #{movie.runtime}"
-p "Rating: #{movie.rated}"
+p "Rated: #{movie.rated}"
 p "Image URL: #{movie.image_url}"
 
 

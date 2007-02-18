@@ -8,7 +8,7 @@ puts "IMDB ID: #{movie.imdb_id}"
 puts "Title: #{movie.title}"
 puts "Plot: #{movie.plot}"
 puts "Runtime: #{movie.rated}"
-puts "Rating: #{movie.rating}"
+puts "Rated: #{movie.rated}"
 puts "Image URL: #{movie.image_url}"
 
 

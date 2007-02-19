@@ -29,7 +29,7 @@ class Imdb
     
     ##get plot
     begin
-      @description = @imdb_contents.match(/Plot (Outline|Summary).*?href/m).to_s[18..-9].strip
+      @description = @imdb_contents.match(/Plot (Outline|Summary).*?href/m).to_s[18..-33].strip
     rescue
       @description = ""
     end

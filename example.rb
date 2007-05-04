@@ -7,7 +7,7 @@ require 'imdb'
 require 'net/http'
 require 'open-uri'
 
-movie = Imdb.new('Marie Antoinette')
+movie = Imdb::Movie.new('jurassic park')
 
 p "IMDB ID: #{movie.imdb_id}"
 p "Title: #{movie.title}"
@@ -15,5 +15,6 @@ p "Plot: #{movie.description}"
 p "Runtime: #{movie.runtime}"
 p "Rated: #{movie.rated}"
 p "Image URL: #{movie.image_url}"
+p "Genres: #{movie.genres.inspect}"
 
 

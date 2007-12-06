@@ -1,9 +1,9 @@
 require 'imdb'
 include Imdb
 
-describe Movie do
-  it "should have an imdb base url" do
-    Movie::IMDB_MOVIE_URL.should eql("http://www.imdb.com/title/")
+describe Imdb do
+  it "should have an imdb movie base url" do
+    Movie::IMDB_MOVIE_BASE_URL.should eql("http://www.imdb.com/title/")
   end
 end
 

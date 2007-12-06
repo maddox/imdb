@@ -1,5 +1,7 @@
 module Imdb
 
+  IMDB_MOVIE_BASE_URL = "http://www.imdb.com/title/"
+
   class Movie
   
     require 'rubygems'
@@ -8,12 +10,11 @@ module Imdb
   
     attr_accessor :imdb_id, :title, :director, :plot, :runtime, :rating, :poster_url
   
-    IMDB_MOVIE_URL = "http://www.imdb.com/title/"
   
 
     def find_by_id(id)
       self.imdb_id = id
-      data = Hpricot(open(IMDB_MOVIE_URL + id))
+      data = Hpricot(open(IMDB_MOVIE_BASE_URL + id))
       self.title = data.at("meta[@name='title']")['content'].gsub(/\(\d\d\d\d\)/,'').strip
 
       rating_text = (data/"div.rating/b").inner_text

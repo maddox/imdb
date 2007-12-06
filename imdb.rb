@@ -9,9 +9,9 @@ module Imdb
     require 'open-uri'
   
     attr_accessor :imdb_id, :title, :director, :plot, :runtime, :rating, :poster_url
-  
-  
-
+    
+    
+    
     def find_by_id(id)
       self.imdb_id = id
       data = Hpricot(open(IMDB_MOVIE_BASE_URL + id))

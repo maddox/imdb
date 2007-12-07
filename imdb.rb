@@ -22,7 +22,11 @@ module Imdb
         self.rating = $1
       end
 
-      self.poster_url = data.at("div.photo/a[@name='poster']/img")['src']
+      begin
+        self.poster_url = data.at("div.photo/a[@name='poster']/img")['src']
+      rescue
+        self.poster_url = nil
+      end
 
       (data/"div.info").each do |info|
         case (info/"h5").inner_text

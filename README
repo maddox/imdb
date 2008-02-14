@@ -3,10 +3,8 @@ A simple ruby library to scrape IMDB
 USAGE:
 
 require 'Imdb'
-include Imdb
 
-movie = Movie.new
-movie.find_by_id('tt0382932')
+movie = Imdb.find_movie_by_id('tt0382932')
 
 puts "IMDB ID: #{movie.imdb_id}"
 puts "Title: #{movie.title}"

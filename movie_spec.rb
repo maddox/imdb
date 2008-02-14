@@ -1,25 +1,23 @@
 require 'imdb'
-include Imdb
 
 describe Imdb do
   it "should have an imdb movie base url" do
-    Movie::IMDB_MOVIE_BASE_URL.should eql("http://www.imdb.com/title/")
+    Imdb::IMDB_MOVIE_BASE_URL.should eql("http://www.imdb.com/title/")
   end
 end
 
-describe Movie, " when first created" do
+describe ImdbMovie, " when first created" do
 
   it "should not have an imdb_id" do
-    movie = Movie.new
+    movie = ImdbMovie.new
     movie.imdb_id.should be_nil
   end
 
 end
 
-describe Movie, " after a find_by_id" do 
+describe ImdbMovie, " after a Imdb.find_by_id returns it" do 
   before(:each) do
-    @movie = Movie.new
-    @movie.find_by_id('tt0382932')
+    @movie = Imdb.find_movie_by_id('tt0382932')
   end
   
   

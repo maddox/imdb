@@ -4,6 +4,9 @@ describe Imdb do
   it "should have an imdb movie base url" do
     Imdb::IMDB_MOVIE_BASE_URL.should eql("http://www.imdb.com/title/")
   end
+  it "should have an imdb search base url" do
+    Imdb::IMDB_SEARCH_BASE_URL.should eql("http://imdb.com/find?s=all&q=")
+  end
 end
 
 describe ImdbMovie, " when first created" do

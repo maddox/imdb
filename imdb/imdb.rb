@@ -1,7 +1,7 @@
 class Imdb
 
   IMDB_MOVIE_BASE_URL = "http://www.imdb.com/title/"
-
+  IMDB_SEARCH_BASE_URL = "http://imdb.com/find?s=all&q="
 
   def self.find_movie_by_id(id)
     

@@ -36,15 +36,15 @@ describe Movie, " after a find_by_id" do
   end
 
   it "should have a rating" do
-    @movie.rating.should eql('8.4')
+    @movie.rating.should =~ /\d.\d/
   end
   
   it "should have a poster_url" do
-    @movie.poster_url.should eql('http://ia.imdb.com/media/imdb/01/I/48/39/63/10m.jpg')
+    @movie.poster_url.should eql('http://ia.imdb.com/media/imdb/01/M/==/QM/1I/DM/xM/zN/wc/TZ/tF/kX/nB/na/B5/lM/B5/FO/wk/DM/0Y/zN/wg/zM/B5/VM._SX100_SY140_.jpg')
   end
 
   it "should have a runtime" do
-    @movie.runtime.should eql('111 min')
+    @movie.runtime.should =~ /\d+ min/
   end
   
   it "should have a plot" do

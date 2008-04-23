@@ -61,11 +61,10 @@ describe ImdbMovie, " after a Imdb.find_by_id returns it" do
 
   it "should have five genres" do
     @movie.genres.length.should == 5
-    @movie.genres[0].name.should eql('Animation');
-    @movie.genres[1].name.should eql('Adventure');
-    @movie.genres[2].name.should eql('Comedy');
-    @movie.genres[3].name.should eql('Family');
-    @movie.genres[4].name.should eql('Fantasy');
+  end
+  
+  it "should have specific genres" do
+    @movie.genres.map{|g| g.name}.should include('Animation', 'Adventure', 'Comedy', 'Family', 'Fantasy')
   end
 
   it "should have a tagline" do

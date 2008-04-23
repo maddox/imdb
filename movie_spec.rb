@@ -32,16 +32,52 @@ describe ImdbMovie, " after a Imdb.find_by_id returns it" do
     @movie.title.should eql('Ratatouille')
   end
 
-  it "should have a director" do
-    @movie.director.should eql('Brad BirdJan Pinkava (co-director)')
+  it "should have a company" do
+    @movie.company.imdb_id.should eql('co0017902')
+    @movie.company.name.should eql('Pixar Animation Studios')
   end
 
+  it "should have two directors" do
+    @movie.directors.length.should == 2
+    @movie.directors[0].imdb_id.should eql('nm0083348');
+    @movie.directors[0].name.should eql('Brad Bird');
+    @movie.directors[0].role.should eql(nil);
+
+    @movie.directors[1].imdb_id.should eql('nm0684342');
+    @movie.directors[1].name.should eql('Jan Pinkava');
+    @movie.directors[1].role.should eql('co-director');
+  end
+
+  it "should have two writers" do
+    @movie.writers.length.should == 2
+    @movie.writers[0].imdb_id.should eql('nm0083348');
+    @movie.writers[0].name.should eql('Brad Bird');
+    @movie.writers[0].role.should eql('screenplay');
+
+    @movie.writers[1].imdb_id.should eql('nm0684342');
+    @movie.writers[1].name.should eql('Jan Pinkava');
+    @movie.writers[1].role.should eql('story');
+  end
+
+  it "should have five genres" do
+    @movie.genres.length.should == 5
+    @movie.genres[0].name.should eql('Animation');
+    @movie.genres[1].name.should eql('Adventure');
+    @movie.genres[2].name.should eql('Comedy');
+    @movie.genres[3].name.should eql('Family');
+    @movie.genres[4].name.should eql('Fantasy');
+  end
+
+  it "should have a tagline" do
+    @movie.tagline.should eql('Dinner is served... Summer 2007')
+  end
+  
   it "should have a rating" do
     @movie.rating.should =~ /\d.\d/
   end
   
   it "should have a poster_url" do
-    @movie.poster_url.should eql('http://ia.imdb.com/media/imdb/01/M/==/QM/1I/DM/xM/zN/wc/TZ/tF/kX/nB/na/B5/lM/B5/FO/wk/DM/0Y/zN/wg/zM/B5/VM._SX100_SY140_.jpg')
+    @movie.poster_url.should =~ /http:\/\/.*\.jpg/
   end
 
   it "should have a runtime" do

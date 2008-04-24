@@ -91,5 +91,20 @@ describe ImdbMovie, " after a Imdb.find_by_id returns it" do
     @movie.plot.should eql(%{Remy is a young rat in the French countryside who arrives in Paris, only to find out that his cooking idol is dead. When he makes an unusual alliance with a restaurant's new garbage boy, the culinary and personal adventures begin despite Remy's family's skepticism and the rat-hating world of humans.})
   end
 
+  it "should return an empty array if writers is nil" do
+    @movie.writers = nil
+    @movie.writers.should == []
+  end
+
+  it "should return an empty array if directors is nil" do
+    @movie.directors = nil
+    @movie.directors.should == []
+  end
+
+  it "should return an empty array if genres is nil" do
+    @movie.genres = nil
+    @movie.genres.should == []
+  end
+
 end
 

@@ -1,5 +1,3 @@
-require 'Date'
-
 class Imdb
 
   IMDB_MOVIE_BASE_URL = "http://www.imdb.com/title/"

@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'hpricot'
 require 'open-uri'
+require 'date'
 require 'imdb/imdb'
 require 'imdb/imdb_company'
 require 'imdb/imdb_movie'

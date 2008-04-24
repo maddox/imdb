@@ -43,7 +43,11 @@ class Imdb
       when "Genre:"
         movie.genres = parse_genres(info)
       when "Release Date:"
-        movie.release_date = Date.parse(parse_info(info).strip);
+        begin
+          movie.release_date = Date.parse(parse_info(info).strip);
+        rescue
+          movie.release_date = nil;
+        end
       end
     end 
 

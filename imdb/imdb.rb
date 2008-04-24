@@ -44,7 +44,9 @@ class Imdb
         movie.genres = parse_genres(info)
       when "Release Date:"
         begin
-          movie.release_date = Date.parse(parse_info(info).strip);
+          if (parse_info(info).strip =~ /(\d{1,2}) ([a-zA-Z]+) (\d{4})/)
+            movie.release_date = Date.parse("#{$2} #{$1}, #{$3}");
+          end
         rescue
           movie.release_date = nil;
         end

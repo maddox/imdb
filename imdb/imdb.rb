@@ -38,8 +38,8 @@ class Imdb
         movie.tagline = parse_info(info).strip
       when "Runtime:"
         movie.runtime = parse_info(info).strip
-      when "Plot Outline:"
-        movie.plot = parse_info(info).gsub(/more$/, '').strip
+      when /Plot( Outline)?:/
+        movie.plot = parse_info(info).gsub(/ full summary \| full synopsis \(warning! may contain spoilers\)$/, '').strip
       when "Genre:"
         movie.genres = parse_genres(info)
       when "Release Date:"

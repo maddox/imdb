@@ -15,7 +15,7 @@ class Imdb
     movie.imdb_id = id
     movie.title = data.at("meta[@name='title']")['content'].gsub(/\(\d\d\d\d\)/,'').strip
 
-    rating_text = (data/"div.rating/b").inner_text
+    rating_text = (data/"div.rating/div.meta/b").inner_text
     if rating_text =~ /([\d\.]+)\/10/
       movie.rating = $1
     end
@@ -26,11 +26,13 @@ class Imdb
       movie.poster_url = nil
     end
 
-    (data/"div.info").each do |info|
-      case (info/"h5").inner_text
+    infos = (data/"div.info")
+    infos.each do |info|
+      info_title = (info/"h5").inner_text
+      case info_title
       when /Directors?:/
         movie.directors = parse_names(info)
-      when /Writers?:/
+      when /Writers?[^:]+:/
         movie.writers = parse_names(info)
       when /Company:/
         movie.company = parse_company(info)

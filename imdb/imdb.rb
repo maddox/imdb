@@ -47,6 +47,7 @@ class Imdb
         movie.plot = movie.plot.gsub(/\s*\|\s*add synopsis$/, '')
         movie.plot = movie.plot.gsub(/\s*\|\s*full synopsis$/, '')
         movie.plot = movie.plot.gsub(/full summary$/, '')
+        movie.plot = movie.plot.strip
       when "Genre:"
         movie.genres = parse_genres(info)
       when "Release Date:"

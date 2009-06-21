@@ -19,6 +19,9 @@ end
 movie.writers.each do |writer|
         puts "Writer: #{writer.name}"
 end
+movie.actors.each do |actor|
+        puts "Actor: #{actor.name} as #{actor.role}"
+end
 movie.genres.each do |genre|
         puts "Genre: #{genre.name}"
 end

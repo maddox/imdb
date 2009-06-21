@@ -44,20 +44,32 @@ class Imdb
         movie.plot = parse_info(info).strip
         movie.plot = movie.plot.gsub(/\s*\|\s*add synopsis$/, '')
         movie.plot = movie.plot.gsub(/\s*\|\s*full synopsis$/, '')
+        movie.plot = movie.plot.gsub(/\s*\|\s*add summary$/, '')
         movie.plot = movie.plot.gsub(/full summary$/, '')
+        movie.plot = movie.plot.gsub(/more$/, '')
         movie.plot = movie.plot.strip
       when "Genre:"
         movie.genres = parse_genres(info)
       when "Release Date:"
         begin
           if (parse_info(info).strip =~ /(\d{1,2}) ([a-zA-Z]+) (\d{4})/)
-            movie.release_date = Date.parse("#{$2} #{$1}, #{$3}");
+            movie.release_date = Date.parse("#{$2} #{$1}, #{$3}")
           end
         rescue
-          movie.release_date = nil;
+          movie.release_date = nil
         end
       end
     end 
+
+    cast = (data/"table.cast"/"tr")
+    cast.each do |cast_member|
+        actor_a = (cast_member/"td.nm").inner_html
+        actor_a =~ /name\/([^"]+)\//
+        actor_id = $1
+        actor_name = (cast_member/"td.nm"/"a").inner_text
+        actor_role = (cast_member/"td.char").inner_text
+        movie.actors = movie.actors << ImdbName.new(actor_id, actor_name, actor_role)
+    end
 
     movie # return movie
 
@@ -83,7 +95,7 @@ class Imdb
   
   def self.parse_company(info)
     # <a href="/company/co0017902/">Pixar Animation Studios</a>
-    match = info.inner_html =~ /<a href="\/company\/([^"]+)\/">([^<]+)<\/a>/;
+    match = info.inner_html =~ /<a href="\/company\/([^"]+)\/">([^<]+)<\/a>/
     ImdbCompany.new($1, $2)
   end
 

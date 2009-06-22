@@ -7,13 +7,14 @@ class Imdb
   IMDB_SEARCH_BASE_URL = "http://imdb.com/find?s=all&q="
 
   def self.find_movie_by_id(id)
-    
+    coder = HTMLEntities.new
+
     data = Hpricot(open(IMDB_MOVIE_BASE_URL + id))
     
     movie = ImdbMovie.new
     
     movie.imdb_id = id
-    movie.title = data.at("meta[@name='title']")['content'].gsub(/\(\d\d\d\d\)/,'').strip
+    movie.title = coder.decode(data.at("meta[@name='title']")['content'].gsub(/\(\d\d\d\d\)/,'').strip)
 
     rating_text = (data/"div.rating/div.meta/b").inner_text
     if rating_text =~ /([\d\.]+)\/10/
@@ -47,7 +48,7 @@ class Imdb
         movie.plot = movie.plot.gsub(/\s*\|\s*add summary$/, '')
         movie.plot = movie.plot.gsub(/full summary$/, '')
         movie.plot = movie.plot.gsub(/more$/, '')
-        movie.plot = movie.plot.strip
+        movie.plot = coder.decode(movie.plot.strip)
       when "Genre:"
         movie.genres = parse_genres(info)
       when "Release Date:"
@@ -66,8 +67,8 @@ class Imdb
         actor_a = (cast_member/"td.nm").inner_html
         actor_a =~ /name\/([^"]+)\//
         actor_id = $1
-        actor_name = (cast_member/"td.nm"/"a").inner_text
-        actor_role = (cast_member/"td.char").inner_text
+        actor_name = coder.decode((cast_member/"td.nm"/"a").inner_text)
+        actor_role = coder.decode((cast_member/"td.char").inner_text)
         movie.actors = movie.actors << ImdbName.new(actor_id, actor_name, actor_role)
     end
 
@@ -87,26 +88,30 @@ class Imdb
   end
   
   def self.parse_names(info)
+    coder = HTMLEntities.new
+
     # <a href="/name/nm0083348/">Brad Bird</a><br/><a href="/name/nm0684342/">Jan Pinkava</a> (co-director)<br/>N
     info.inner_html.scan(/<a href="\/name\/([^"]+)\/">([^<]+)<\/a>( \(([^)]+)\))?/).map do |match|
-      ImdbName.new(match[0], match[1], match[3])
+      ImdbName.new(coder.decode(match[0]), coder.decode(match[1]), coder.decode(match[3]))
     end
   end
   
   def self.parse_company(info)
+    coder = HTMLEntities.new
     # <a href="/company/co0017902/">Pixar Animation Studios</a>
     match = info.inner_html =~ /<a href="\/company\/([^"]+)\/">([^<]+)<\/a>/
-    ImdbCompany.new($1, $2)
+    ImdbCompany.new(coder.decode($1), coder.decode($2))
   end
 
   def self.parse_genres(info)
+    coder = HTMLEntities.new
     # <a href="/Sections/Genres/Animation/">Animation</a> / <a href="/Sections/Genres/Adventure/">Adventure</a>
     genre_links = (info/"a").find_all do |link|
       link['href'] =~ /^\/Sections\/Genres/
     end 
     genre_links.map do |link|
       genre = link['href'] =~ /([^\/]+)\/$/
-      ImdbGenre.new($1, $1)
+      ImdbGenre.new(coder.decode($1), coder.decode($1))
     end
   end
 

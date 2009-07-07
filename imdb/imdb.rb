@@ -59,6 +59,10 @@ class Imdb
         rescue
           movie.release_date = nil
         end
+      when "Certification:"
+        begin
+          movie.certification = (info/"a").map { |v| v.inner_html }.select { |v| v =~ /^USA:/ && v !~ /Unrated/ }.map { |v| v[/^USA:/]=''; v.strip }.first
+        end
       end
     end 
 

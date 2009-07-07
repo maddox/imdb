@@ -36,6 +36,10 @@ describe ImdbMovie, " after a Imdb.find_by_id returns it" do
     @movie.release_date.should eql(Date.new(2007, 06, 29))
   end
 
+  it "should have a G certification" do
+    @movie.certification.should eql('G')
+  end
+
   it "should have a company" do
     @movie.company.imdb_id.should eql('co0017902')
     @movie.company.name.should eql('Pixar Animation Studios')

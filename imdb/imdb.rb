@@ -41,6 +41,10 @@ class Imdb
         movie.tagline = parse_info(info).strip
       when "Runtime:"
         movie.runtime = parse_info(info).strip
+        if (movie.runtime)
+          movie.runtime.gsub!(/^[^:]+:\s*/, '')
+          movie.runtime.gsub!(/min .*/, 'min')
+        end
       when "Plot:"
         movie.plot = parse_info(info).strip
         movie.plot = movie.plot.gsub(/\s*\|\s*add synopsis$/, '')

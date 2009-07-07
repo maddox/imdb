@@ -45,7 +45,7 @@ describe ImdbMovie, " after a Imdb.find_by_id returns it" do
     @movie.directors.length.should == 2
     @movie.directors[0].imdb_id.should eql('nm0083348');
     @movie.directors[0].name.should eql('Brad Bird');
-    @movie.directors[0].role.should eql(nil);
+    @movie.directors[0].role.should eql('');
 
     @movie.directors[1].imdb_id.should eql('nm0684342');
     @movie.directors[1].name.should eql('Jan Pinkava');
@@ -61,6 +61,17 @@ describe ImdbMovie, " after a Imdb.find_by_id returns it" do
     @movie.writers[1].imdb_id.should eql('nm0684342');
     @movie.writers[1].name.should eql('Jan Pinkava');
     @movie.writers[1].role.should eql('story');
+  end
+
+  it "should have 15 actors" do
+    @movie.actors.length.should == 15
+    @movie.actors[0].imdb_id.should eql('nm0652663');
+    @movie.actors[0].name.should eql('Patton Oswalt');
+    @movie.actors[0].role.should eql('Remy (voice)');
+
+    @movie.actors[14].imdb_id.should eql('nm0826039');
+    @movie.actors[14].name.should eql('Jake Steinfeld');
+    @movie.actors[14].role.should eql('Git (Lab Rat) (voice)');
   end
 
   it "should have five genres" do

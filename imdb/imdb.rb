@@ -41,6 +41,10 @@ class Imdb
         movie.tagline = coder.decode(parse_info(info).strip)
       when "Runtime:"
         movie.runtime = parse_info(info).strip
+        if (movie.runtime)
+          movie.runtime.gsub!(/^[^:]+:\s*/, '')
+          movie.runtime.gsub!(/min .*/, 'min')
+        end
       when "Plot:"
         movie.plot = parse_info(info).strip
         movie.plot = movie.plot.gsub(/\s*\|\s*add synopsis$/, '')
@@ -58,6 +62,10 @@ class Imdb
           end
         rescue
           movie.release_date = nil
+        end
+      when "Certification:"
+        begin
+          movie.certification = (info/"a").map { |v| v.inner_html }.select { |v| v =~ /^USA:/ && v !~ /Unrated/ }.map { |v| v[/^USA:/]=''; v.strip }.first
         end
       end
     end 
@@ -91,7 +99,7 @@ class Imdb
     coder = HTMLEntities.new
 
     # <a href="/name/nm0083348/">Brad Bird</a><br/><a href="/name/nm0684342/">Jan Pinkava</a> (co-director)<br/>N
-    info.inner_html.scan(/<a href="\/name\/([^"]+)\/">([^<]+)<\/a>( \(([^)]+)\))?/).map do |match|
+    info.inner_html.scan(/<a href="\/name\/([^"]+)\/"[^>]*>([^<]+)<\/a>( \(([^)]+)\))?/).map do |match|
       ImdbName.new(coder.decode(match[0]), coder.decode(match[1]), coder.decode(match[3]))
     end
   end

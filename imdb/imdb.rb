@@ -41,6 +41,10 @@ class Imdb
         movie.tagline = parse_info(info).strip
       when "Runtime:"
         movie.runtime = parse_info(info).strip
+        if (movie.runtime)
+          movie.runtime.gsub!(/^[^:]+:\s*/, '')
+          movie.runtime.gsub!(/min .*/, 'min')
+        end
       when "Plot:"
         movie.plot = parse_info(info).strip
         movie.plot = movie.plot.gsub(/\s*\|\s*add synopsis$/, '')
@@ -58,6 +62,10 @@ class Imdb
           end
         rescue
           movie.release_date = nil
+        end
+      when "Certification:"
+        begin
+          movie.certification = (info/"a").map { |v| v.inner_html }.select { |v| v =~ /^USA:/ && v !~ /Unrated/ }.map { |v| v[/^USA:/]=''; v.strip }.first
         end
       end
     end 

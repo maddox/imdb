@@ -91,7 +91,7 @@ class Imdb
     coder = HTMLEntities.new
 
     # <a href="/name/nm0083348/">Brad Bird</a><br/><a href="/name/nm0684342/">Jan Pinkava</a> (co-director)<br/>N
-    info.inner_html.scan(/<a href="\/name\/([^"]+)\/">([^<]+)<\/a>( \(([^)]+)\))?/).map do |match|
+    info.inner_html.scan(/<a href="\/name\/([^"]+)\/"[^>]*>([^<]+)<\/a>( \(([^)]+)\))?/).map do |match|
       ImdbName.new(coder.decode(match[0]), coder.decode(match[1]), coder.decode(match[3]))
     end
   end

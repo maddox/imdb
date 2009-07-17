@@ -38,7 +38,7 @@ class Imdb
       when /Company:/
         movie.company = parse_company(info)
       when "Tagline:"
-        movie.tagline = parse_info(info).strip
+        movie.tagline = coder.decode(parse_info(info).strip)
       when "Runtime:"
         movie.runtime = parse_info(info).strip
         if (movie.runtime)

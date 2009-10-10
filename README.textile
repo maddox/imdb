@@ -1,0 +1,24 @@
+h1. IMDB!
+
+h2. What?
+
+A simple ruby library to scrape IMDB
+
+h2. How?
+
+<pre>
+	<code>
+movie = Imdb.find_movie_by_id('tt1099212')
+movie.title
+</code>
+=> "Twilight"
+
+</pre>
+
+It does more of course, just look at the source.
+
+h2. Installation
+
+gem install imdb
+
+gem hosted on Gemcutter

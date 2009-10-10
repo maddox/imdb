@@ -4,7 +4,7 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name = "imdb"
+    gem.name = "imdb_og"
     gem.summary = %Q{Simple library to look up movies on IMDB}
     gem.description = %Q{Simple library to look up movies on IMDB}
     gem.email = "jon@mustacheinc.com"

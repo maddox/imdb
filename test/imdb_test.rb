@@ -10,6 +10,25 @@ class ImdbTest < Test::Unit::TestCase
       assert_equal "http://imdb.com/find?s=all&q=", Imdb::IMDB_SEARCH_BASE_URL
     end
   end
+  context "when searching" do
+    setup do
+      @results = Imdb.search_movies_by_title('transformers')
+    end
+    
+    should "return an array of results" do
+      assert_equal Array, @results.class
+    end
+
+    should "return an array of hashes" do
+      assert_equal Hash, @results.first.class
+    end
+
+    should "return an array of hashes with the right keys" do
+      assert @results.first.has_key?(:title)
+      assert @results.first.has_key?(:imdb_id)
+    end
+
+  end
 
   context "ImdbMovie" do
     context "when first created" do

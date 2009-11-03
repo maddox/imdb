@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{imdb_og}
-  s.version = "0.5.0"
+  s.version = "0.5.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Jon Maddox"]
-  s.date = %q{2009-10-10}
+  s.date = %q{2009-11-03}
   s.description = %q{Simple library to look up movies on IMDB}
   s.email = %q{jon@mustacheinc.com}
   s.extra_rdoc_files = [
@@ -22,13 +22,14 @@ Gem::Specification.new do |s|
      "README.textile",
      "Rakefile",
      "VERSION",
-     "imdb.gemspec",
+     "imdb_og.gemspec",
      "lib/imdb.rb",
      "lib/imdb/imdb.rb",
      "lib/imdb/imdb_company.rb",
      "lib/imdb/imdb_genre.rb",
      "lib/imdb/imdb_movie.rb",
      "lib/imdb/imdb_name.rb",
+     "lib/imdb/patches.rb",
      "test/imdb_test.rb",
      "test/test_helper.rb"
   ]

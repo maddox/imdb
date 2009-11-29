@@ -11,21 +11,43 @@ class ImdbTest < Test::Unit::TestCase
     end
   end
   context "when searching" do
-    setup do
-      @results = Imdb.search_movies_by_title('transformers')
+    context "for an ambiguous title" do
+      setup do
+        @results = Imdb.search_movies_by_title('transformers')
+      end
+    
+      should "return an array of results" do
+        assert_equal Array, @results.class
+      end
+    
+      should "return an array of hashes" do
+        assert_equal Hash, @results.first.class
+      end
+    
+      should "return an array of hashes with the right keys" do
+        assert @results.first.has_key?(:title)
+        assert @results.first.has_key?(:imdb_id)
+      end
     end
     
-    should "return an array of results" do
-      assert_equal Array, @results.class
-    end
-
-    should "return an array of hashes" do
-      assert_equal Hash, @results.first.class
-    end
-
-    should "return an array of hashes with the right keys" do
-      assert @results.first.has_key?(:title)
-      assert @results.first.has_key?(:imdb_id)
+    context "for a distinct title" do
+      setup do
+        @result = Imdb.search_movies_by_title('the september issue')
+      end
+    
+      should "return a single hash of the exact result" do
+        assert_equal Hash, @result.class
+      end
+    
+      should "return an the correct movie title" do
+        assert @result.has_key?(:title)
+        assert_equal "The September Issue", @result[:title]
+      end
+    
+      should "return an the correct imdb id" do
+        assert @result.has_key?(:imdb_id)
+        assert_equal "tt1331025", @result[:imdb_id]
+      end
     end
 
   end
@@ -80,7 +102,7 @@ class ImdbTest < Test::Unit::TestCase
         assert_equal 'nm0083348', @movie.writers[0].imdb_id
         assert_equal 'Brad Bird', @movie.writers[0].name
         assert_equal 'screenplay', @movie.writers[0].role
-
+  
         assert_equal 'nm0684342', @movie.writers[1].imdb_id
         assert_equal 'Jan Pinkava', @movie.writers[1].name
         assert_equal 'story', @movie.writers[1].role
@@ -91,7 +113,7 @@ class ImdbTest < Test::Unit::TestCase
         assert_equal 'nm0652663', @movie.actors[0].imdb_id
         assert_equal 'Patton Oswalt', @movie.actors[0].name
         assert_equal 'Remy (voice)', @movie.actors[0].role
-
+  
         assert_equal 'nm0826039', @movie.actors[14].imdb_id
         assert_equal 'Jake Steinfeld', @movie.actors[14].name
         assert_equal 'Git (Lab Rat) (voice)', @movie.actors[14].role

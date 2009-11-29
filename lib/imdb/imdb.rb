@@ -9,13 +9,17 @@ class Imdb
 
   def self.search_movies_by_title(title)
     document = Hpricot(open("#{IMDB_SEARCH_BASE_URL}#{CGI::escape(title)};s=tt").read)
-
-    results = document.search('a[@href^="/title/tt"]').reject do |element|
-      element.innerHTML.strip_tags.empty?
-    end.map do |element|
-      {:imdb_id => element['href'][/tt\d+/], :title => element.innerHTML.strip_tags.unescape_html}
+    # we got search results
+    if document.search('title').inner_text == "IMDb Title Search"
+      results = document.search('a[@href^="/title/tt"]').reject do |element|
+        element.innerHTML.strip_tags.empty?
+      end.map do |element|
+        {:imdb_id => element['href'][/tt\d+/], :title => element.innerHTML.strip_tags.unescape_html}
+      end
+      results.uniq
+    else
+      {:imdb_id => document.search('link[@href^="http://www.imdb.com/title/tt"]').first['href'].match(/tt\d+/).to_s, :title => document.search('meta[@name="title"]').first["content"].gsub(/\(\d\d\d\d\)$/, '').strip}
     end
-    results.uniq
   end
 
   def self.find_movie_by_id(id)

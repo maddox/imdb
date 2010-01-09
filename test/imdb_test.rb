@@ -119,11 +119,12 @@ class ImdbTest < Test::Unit::TestCase
         assert_equal 'Git (Lab Rat) (voice)', @movie.actors[14].role
       end
           
-      should "have five genres" do
-        assert_equal 3, @movie.genres.length
+      should "have four genres" do
+        assert_equal 4, @movie.genres.length
         assert_equal 'Animation', @movie.genres[0].name
         assert_equal 'Comedy', @movie.genres[1].name
         assert_equal 'Family', @movie.genres[2].name
+        assert_equal 'Fantasy', @movie.genres[3].name
       end
           
       should "have a tagline" do

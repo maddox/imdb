@@ -30,7 +30,7 @@ class Imdb
     movie = ImdbMovie.new
     
     movie.imdb_id = id
-    movie.title = coder.decode(data.at("meta[@name='title']")['content'].gsub(/\((\d{4}(\/[^)]*)?|[A-Z]+)\)/,'').strip)
+    movie.title = coder.decode(data.at("title").inner_text.gsub(/\((\d{4}(\/[^)]*)?|[A-Z]+)\)/,'').strip)
 
     rating_text = (data/"div.starbar-meta/b").inner_text
     if rating_text =~ /([\d\.]+)\/10/

@@ -56,6 +56,9 @@ class Imdb
         movie.company = parse_company(info)
       when "Tagline:"
         movie.tagline = coder.decode(parse_info(info).strip)
+	if movie.tagline
+        	movie.tagline = movie.tagline.gsub(/\s*see more.*/i, '')
+	end
       when "Runtime:"
         movie.runtime = parse_info(info).strip
         if (movie.runtime)
@@ -64,11 +67,11 @@ class Imdb
         end
       when "Plot:"
         movie.plot = parse_info(info).strip
-        movie.plot = movie.plot.gsub(/\s*\|\s*add synopsis$/, '')
-        movie.plot = movie.plot.gsub(/\s*\|\s*full synopsis$/, '')
-        movie.plot = movie.plot.gsub(/\s*\|\s*add summary$/, '')
-        movie.plot = movie.plot.gsub(/full summary$/, '')
-        movie.plot = movie.plot.gsub(/more$/, '')
+        movie.plot = movie.plot.gsub(/\s*\|\s*add synopsis.*/i, '')
+        movie.plot = movie.plot.gsub(/\s*\|\s*full synopsis.*/i, '')
+        movie.plot = movie.plot.gsub(/\s*\|\s*add summary.*/i, '')
+        movie.plot = movie.plot.gsub(/\s*full summary.*/i, '')
+        movie.plot = movie.plot.gsub(/more$/i, '')
         movie.plot = coder.decode(movie.plot.strip)
       when "Genre:"
         movie.genres = parse_genres(info)

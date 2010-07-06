@@ -7,7 +7,7 @@ class Imdb
   IMDB_SEARCH_BASE_URL = "http://imdb.com/find?s=all&q="
   IMDB_TOP_250_URL = "http://www.imdb.com/chart/top"
   IMDB_TOP_BY_DECADE_BASE_URL = "http://www.imdb.com/chart/"
-
+  IMDB_ALL_TIME_BOX_OFFICE_BASE_URL = "http://www.imdb.com/boxoffice/alltimegross"
 
   def self.top_250
     coder = HTMLEntities.new
@@ -28,6 +28,31 @@ class Imdb
     results = []
     document.search("div#main table:nth(0) a").each do |result|
       results << {:imdb_id => result["href"].match(/tt\d+/).to_s, :title => coder.decode(result.inner_text)}
+    end
+    
+    results
+  end
+
+  def self.all_time_us_box_office
+    coder = HTMLEntities.new
+    document = Hpricot(open(IMDB_ALL_TIME_BOX_OFFICE_BASE_URL).read)
+    parse_all_time_box_office(document)
+  end
+
+  def self.all_time_worldwide_box_office
+    document = Hpricot(open("#{IMDB_ALL_TIME_BOX_OFFICE_BASE_URL}?region=world-wide").read)
+    parse_all_time_box_office(document)
+  end
+  
+  def self.parse_all_time_box_office(document)
+    coder = HTMLEntities.new
+    results = []
+    document.search("div#main table tr").each do |result|
+      movie_link = result.at("td a")
+      dollar_amount = result.at("td:nth(2)")
+      next unless dollar_amount && movie_link
+
+      results << {:imdb_id => movie_link["href"].match(/tt\d+/).to_s, :title => coder.decode(movie_link.inner_text), :dollar_amount => dollar_amount.inner_text}
     end
     
     results

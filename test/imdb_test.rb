@@ -15,66 +15,106 @@ class ImdbTest < Test::Unit::TestCase
     should "have a top for decade base url" do
       assert_equal "http://www.imdb.com/chart/", Imdb::IMDB_TOP_BY_DECADE_BASE_URL
     end
+    should "have an all time box office base url" do
+      assert_equal "http://www.imdb.com/boxoffice/alltimegross", Imdb::IMDB_ALL_TIME_BOX_OFFICE_BASE_URL
+    end
   end
   
-  context "when getting top250" do
+  # context "when getting top250" do
+  #   setup do
+  #     @top250 = Imdb.top_250
+  #   end
+  #   
+  #   should "return an array of results" do
+  #     assert_equal Array, @top250.class
+  #   end
+  # 
+  #   should "return 250 results" do
+  #     assert_equal 250, @top250.size
+  #   end
+  # 
+  #   context "the results" do
+  #     setup do
+  #       @result = @top250.first
+  #     end
+  #     
+  #     should "have an imdb_id" do
+  #       assert_not_equal nil, @result[:imdb_id]
+  #     end
+  # 
+  #     should "have a title" do
+  #       assert_not_equal nil, @result[:title]
+  #     end
+  #   end
+  # end
+  # 
+  # context "when getting top by decade" do
+  #   setup do
+  #     @top_90s = Imdb.top_by_decade(1990)
+  #   end
+  #   
+  #   should "return an array of results" do
+  #     assert_equal Array, @top_90s.class
+  #   end
+  # 
+  #   should "return 50 results" do
+  #     assert_equal 50, @top_90s.size
+  #   end
+  # 
+  #   context "the results" do
+  #     setup do
+  #       @result = @top_90s.first
+  #     end
+  #     
+  #     should "have an imdb_id" do
+  #       assert_not_equal nil, @result[:imdb_id]
+  #     end
+  # 
+  #     should "have a title" do
+  #       assert_not_equal nil, @result[:title]
+  #     end
+  #   end
+  # end
+  
+  context "when getting top by box office" do
     setup do
-      @top250 = Imdb.top_250
-    end
-    
-    should "return an array of results" do
-      assert_equal Array, @top250.class
+      @top_by_box_office = Imdb.all_time_us_box_office
     end
 
-    should "return 250 results" do
-      assert_equal 250, @top250.size
+    should "return an array of results" do
+      assert_equal Array, @top_by_box_office.class
     end
 
     context "the results" do
       setup do
-        @result = @top250.first
+        @result = @top_by_box_office.first
       end
-      
-      should "have an imdb_id" do
-        assert_not_equal nil, @result[:imdb_id]
-      end
-
-      should "have a title" do
-        assert_not_equal nil, @result[:title]
-      end
-
-    end
-  end
-  
-  context "when getting top by decard" do
-    setup do
-      @top_90s = Imdb.top_by_decade(1990)
-    end
     
-    should "return an array of results" do
-      assert_equal Array, @top_90s.class
-    end
-
-    should "return 50 results" do
-      assert_equal 50, @top_90s.size
-    end
-
-    context "the results" do
-      setup do
-        @result = @top_90s.first
-      end
-      
       should "have an imdb_id" do
         assert_not_equal nil, @result[:imdb_id]
       end
-
+    
       should "have a title" do
         assert_not_equal nil, @result[:title]
       end
-
+    
+      should "have a dollar amount" do
+        assert_not_equal nil, @result[:dollar_amount]
+      end
     end
+
   end
-  
+
+  context "when getting top by worldwide box office" do
+    setup do
+      @top_by_box_office = Imdb.all_time_worldwide_box_office
+    end
+
+    should "return an array of results" do
+      assert_equal Array, @top_by_box_office.class
+    end
+
+  end
   
   context "when searching" do
     # context "for an ambiguous title" do

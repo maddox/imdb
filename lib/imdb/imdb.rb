@@ -5,6 +5,33 @@ class Imdb
   IMDB_COMPANY_BASE_URL = "http://www.imdb.com/company/"
   IMDB_GENRE_BASE_URL = "http://www.imdb.com/Sections/Genres/"
   IMDB_SEARCH_BASE_URL = "http://imdb.com/find?s=all&q="
+  IMDB_TOP_250_URL = "http://www.imdb.com/chart/top"
+  IMDB_TOP_BY_DECADE_BASE_URL = "http://www.imdb.com/chart/"
+
+
+  def self.top_250
+    coder = HTMLEntities.new
+    document = Hpricot(open(IMDB_TOP_250_URL).read)
+    # we got search results
+    results = []
+    document.search("div#main a").each do |result|
+      results << {:imdb_id => result["href"].match(/tt\d+/).to_s, :title => coder.decode(result.inner_text)}
+    end
+    
+    results
+  end
+
+  def self.top_by_decade(decade)
+    coder = HTMLEntities.new
+    document = Hpricot(open("#{IMDB_TOP_BY_DECADE_BASE_URL}#{decade}s").read)
+    # we got search results
+    results = []
+    document.search("div#main table:nth(0) a").each do |result|
+      results << {:imdb_id => result["href"].match(/tt\d+/).to_s, :title => coder.decode(result.inner_text)}
+    end
+    
+    results
+  end
 
 
   def self.search_movies_by_title(title)

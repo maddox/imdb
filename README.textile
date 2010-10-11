@@ -3,4 +3,4 @@ h1. IMDB!
 h2. DON'T USE THIS
 
 This essentially uses screen scraping and is totally broken now that IMDB has new movie page layouts.
-Use this new gem: "http://github.com/maddox/imdb_party":http://github.com/maddox/imdb_party
+Use this new gem: "http://github.com/maddox/imdb_party":http://github.com/maddox/imdb-party

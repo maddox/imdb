@@ -1,24 +1,6 @@
 h1. IMDB!
 
-h2. What?
+h2. DON'T USE THIS
 
-A simple ruby library to scrape IMDB
-
-h2. How?
-
-<pre>
-	<code>
-movie = Imdb.find_movie_by_id('tt1099212')
-movie.title
-</code>
-=> "Twilight"
-
-</pre>
-
-It does more of course, just look at the source.
-
-h2. Installation
-
-gem install imdb
-
-gem hosted on Gemcutter
+This essentially uses screen scraping and is totally broken now that IMDB has new movie page layouts.
+Use this new gem: "http://github.com/maddox/imdb_party":http://github.com/maddox/imdb_party
